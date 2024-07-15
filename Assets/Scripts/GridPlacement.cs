@@ -1,13 +1,13 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-
 public class GridPlacement : MonoBehaviour
 {
-    private bool player1 = true;
-    private bool player2 = false;
-    private int lastPlayer;
+    private static bool player1 = true;
+    private static bool player2 = false;
+    private static bool scoring = false;
+    public static int lastPlayer;
     private bool finished;
-    private int[,] grid = new int[4, 4];
+    private static int[,] grid = new int[4, 4];
     private GameObject tile;
     private void Start()
     {
@@ -15,7 +15,7 @@ public class GridPlacement : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !scoring)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
@@ -47,15 +47,21 @@ public class GridPlacement : MonoBehaviour
                     else
                         lastPlayer = 2;
                     if (CheckWin(lastPlayer) == lastPlayer)
+                    {
+                        ScoringSystem.scored = true;
                         Debug.Log("Player " + lastPlayer + " wins");
+                    }
                     if (IsFinished())
+                    {
+                        ScoringSystem.bothScored = true;
                         Debug.Log("Draw");
+                    }
                 }
             }
             else Debug.Log("No tile found");
         }
     }
-    private void GridInit()
+    private static void GridInit()
     {
         for (int i = 1; i < 4; i++)
             for (int j = 1; j < 4; j++)
@@ -111,5 +117,18 @@ public class GridPlacement : MonoBehaviour
         if (i == 1 && j == 3)
             return grid[i, j] == grid[i + 1, j - 1] && grid[i + 1, j - 1] == grid[i + 2, j - 2] && grid[i, j] == player;
         else return false;
+    }
+    public static IEnumerator ResetGrid()
+    {
+        scoring = true; 
+        yield return new WaitForSeconds(2f);
+        GridInit();
+        player1 = true;
+        player2 = false;
+        foreach (GameObject X in GameObject.FindGameObjectsWithTag("X"))
+            Destroy(X);
+        foreach (GameObject O in GameObject.FindGameObjectsWithTag("O"))
+            Destroy(O);
+        scoring = false;
     }
 }
