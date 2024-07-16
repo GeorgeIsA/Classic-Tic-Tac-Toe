@@ -5,16 +5,21 @@ public class GridPlacement : MonoBehaviour
     private static bool player1 = true;
     private static bool player2 = false;
     private static bool scoring = false;
-    public static int lastPlayer;
+    private int lastPlayer;
     private bool finished;
     private static int[,] grid = new int[4, 4];
     private GameObject tile;
+    public enum Player { p1, p2 }
+    public static Player startingPlayer;
+    public static Player winningPlayer;
     private void Start()
     {
+        startingPlayer = Player.p1;
         GridInit();
     }
     private void Update()
     {
+        //Debug.Log("PlayerX : " + player1 + " PlayerO : " + player2);
         if (Input.GetMouseButtonDown(0) && !scoring)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -28,6 +33,7 @@ public class GridPlacement : MonoBehaviour
                     int tileValue = int.Parse(gameObjectName);
                     int i = tileValue / 10;
                     int j = tileValue % 10;
+                    CheckLastPlayer();
                     if (player1 && grid[i, j] == 0)
                     {
                         GridSet(tileValue);
@@ -42,19 +48,20 @@ public class GridPlacement : MonoBehaviour
                         player1 = !player1;
                         player2 = !player2;
                     }
-                    if (!player1)
-                        lastPlayer = 1;
-                    else
-                        lastPlayer = 2;
+
                     if (CheckWin(lastPlayer) == lastPlayer)
                     {
+                        if (lastPlayer == 1)
+                            winningPlayer = Player.p1;
+                        else
+                            winningPlayer = Player.p2;
                         ScoringSystem.scored = true;
-                        Debug.Log("Player " + lastPlayer + " wins");
+                        //Debug.Log("Player " + lastPlayer + " wins");
                     }
-                    if (IsFinished())
+                    else if (IsFinished())
                     {
                         ScoringSystem.bothScored = true;
-                        Debug.Log("Draw");
+                        //Debug.Log("Draw");
                     }
                 }
             }
@@ -83,7 +90,6 @@ public class GridPlacement : MonoBehaviour
                 if (HorizontalLine(i, j, player) || VerticalLine(i, j, player) || MainDiagonalLine(i, j, player) || SecondaryDiagonalLine(i, j, player))
                     return player;
         return 0;
-
     }
     private bool IsFinished()
     {
@@ -120,7 +126,7 @@ public class GridPlacement : MonoBehaviour
     }
     public static IEnumerator ResetGrid()
     {
-        scoring = true; 
+        scoring = true;
         yield return new WaitForSeconds(2f);
         GridInit();
         player1 = true;
@@ -130,5 +136,12 @@ public class GridPlacement : MonoBehaviour
         foreach (GameObject O in GameObject.FindGameObjectsWithTag("O"))
             Destroy(O);
         scoring = false;
+    }
+    private void CheckLastPlayer()
+    {
+        if (player1)
+            lastPlayer = 1;
+        else
+            lastPlayer = 2;
     }
 }

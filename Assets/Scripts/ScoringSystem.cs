@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -16,25 +17,50 @@ public class ScoringSystem : MonoBehaviour
     }
     private void Update()
     {
+        //Debug.Log("Current starting player: " + GridPlacement.startingPlayer);
         if (scored)
         {
-            if (GridPlacement.lastPlayer == 1)
+            if (SwitchPlayers() == 1)
             {
-                player1ScoreText.text = (int.Parse(player1ScoreText.text) + 1).ToString();
+                if (GridPlacement.winningPlayer == GridPlacement.Player.p1)
+                    player1ScoreText.text = (int.Parse(player1ScoreText.text) + 1).ToString();
+                else if (GridPlacement.winningPlayer == GridPlacement.Player.p2)
+                    player2ScoreText.text = (int.Parse(player2ScoreText.text) + 1).ToString();
             }
-            else if(GridPlacement.lastPlayer == 2)
+            else
             {
-                player2ScoreText.text = (int.Parse(player2ScoreText.text) + 1).ToString();
+                if (GridPlacement.winningPlayer == GridPlacement.Player.p1)
+                    player2ScoreText.text = (int.Parse(player2ScoreText.text) + 1).ToString();
+                else if (GridPlacement.winningPlayer == GridPlacement.Player.p2)
+                    player1ScoreText.text = (int.Parse(player1ScoreText.text) + 1).ToString();
             }
+
             scored = false;
             StartCoroutine(GridPlacement.ResetGrid());
         }
-        if(bothScored)
+        else if (bothScored)
         {
+            SwitchPlayers();
             player1ScoreText.text = (int.Parse(player1ScoreText.text) + 1).ToString();
             player2ScoreText.text = (int.Parse(player2ScoreText.text) + 1).ToString();
             bothScored = false;
             StartCoroutine(GridPlacement.ResetGrid());
         }
+    }
+
+    private int SwitchPlayers()
+    {
+        if (GridPlacement.startingPlayer == GridPlacement.Player.p1)
+        {
+            GridPlacement.startingPlayer = GridPlacement.Player.p2;
+            return 1;
+        }
+        if (GridPlacement.startingPlayer == GridPlacement.Player.p2)
+        {
+            Debug.Log("Switching players");
+            GridPlacement.startingPlayer = GridPlacement.Player.p1;
+            return 2;
+        }
+        return 0;
     }
 }
