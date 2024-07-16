@@ -8,16 +8,18 @@ public class ScoringSystem : MonoBehaviour
     public static bool bothScored = false;
     private TextMeshProUGUI player1ScoreText;
     private TextMeshProUGUI player2ScoreText;
+    private TextMeshProUGUI drawsText;
     private void Start()
     {
-        player1ScoreText = GameObject.Find("PlayerXScoreText").GetComponent<TextMeshProUGUI>();
+        player1ScoreText = GameObject.Find("Player1ScoreText").GetComponent<TextMeshProUGUI>();
         player1ScoreText.text = 0.ToString();
-        player2ScoreText = GameObject.Find("PlayerOScoreText").GetComponent<TextMeshProUGUI>();
+        player2ScoreText = GameObject.Find("Player2ScoreText").GetComponent<TextMeshProUGUI>();
         player2ScoreText.text = 0.ToString();
+        drawsText = GameObject.Find("DrawsNumber").GetComponent<TextMeshProUGUI>();
+        drawsText.text = 0.ToString();
     }
     private void Update()
     {
-        //Debug.Log("Current starting player: " + GridPlacement.startingPlayer);
         if (scored)
         {
             if (SwitchPlayers() == 1)
@@ -34,15 +36,13 @@ public class ScoringSystem : MonoBehaviour
                 else if (GridPlacement.winningPlayer == GridPlacement.Player.p2)
                     player1ScoreText.text = (int.Parse(player1ScoreText.text) + 1).ToString();
             }
-
             scored = false;
             StartCoroutine(GridPlacement.ResetGrid());
         }
         else if (bothScored)
         {
             SwitchPlayers();
-            player1ScoreText.text = (int.Parse(player1ScoreText.text) + 1).ToString();
-            player2ScoreText.text = (int.Parse(player2ScoreText.text) + 1).ToString();
+            drawsText.text = (int.Parse(drawsText.text) + 1).ToString();
             bothScored = false;
             StartCoroutine(GridPlacement.ResetGrid());
         }
@@ -57,7 +57,6 @@ public class ScoringSystem : MonoBehaviour
         }
         if (GridPlacement.startingPlayer == GridPlacement.Player.p2)
         {
-            Debug.Log("Switching players");
             GridPlacement.startingPlayer = GridPlacement.Player.p1;
             return 2;
         }

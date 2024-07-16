@@ -19,7 +19,6 @@ public class GridPlacement : MonoBehaviour
     }
     private void Update()
     {
-        //Debug.Log("PlayerX : " + player1 + " PlayerO : " + player2);
         if (Input.GetMouseButtonDown(0) && !scoring)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -56,13 +55,9 @@ public class GridPlacement : MonoBehaviour
                         else
                             winningPlayer = Player.p2;
                         ScoringSystem.scored = true;
-                        //Debug.Log("Player " + lastPlayer + " wins");
                     }
                     else if (IsFinished())
-                    {
                         ScoringSystem.bothScored = true;
-                        //Debug.Log("Draw");
-                    }
                 }
             }
             else Debug.Log("No tile found");
