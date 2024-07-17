@@ -9,8 +9,10 @@ public class ScoringSystem : MonoBehaviour
     private TextMeshProUGUI player1ScoreText;
     private TextMeshProUGUI player2ScoreText;
     private TextMeshProUGUI drawsText;
+    public static bool resetPushed;
     private void Start()
     {
+        resetPushed = false;
         player1ScoreText = GameObject.Find("Player1ScoreText").GetComponent<TextMeshProUGUI>();
         player1ScoreText.text = 0.ToString();
         player2ScoreText = GameObject.Find("Player2ScoreText").GetComponent<TextMeshProUGUI>();
@@ -61,5 +63,15 @@ public class ScoringSystem : MonoBehaviour
             return 2;
         }
         return 0;
+    }
+    public void ResetScore()
+    {
+        resetPushed = true;
+        StartCoroutine(GridPlacement.ResetGrid());
+        GridPlacement.SecondRestart();
+        player1ScoreText.text = 0.ToString();
+        player2ScoreText.text = 0.ToString();
+        drawsText.text = 0.ToString();
+        resetPushed = false;
     }
 }

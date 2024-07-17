@@ -2,9 +2,9 @@ using System.Collections;
 using UnityEngine;
 public class GridPlacement : MonoBehaviour
 {
-    private static bool player1 = true;
-    private static bool player2 = false;
-    private static bool scoring = false;
+    private static bool player1;
+    private static bool player2;
+    private static bool scoring;
     private int lastPlayer;
     private bool finished;
     private static int[,] grid = new int[4, 4];
@@ -14,7 +14,10 @@ public class GridPlacement : MonoBehaviour
     public static Player winningPlayer;
     private void Start()
     {
+        player1 = true;
+        player2 = false;
         startingPlayer = Player.p1;
+        scoring = false;
         GridInit();
     }
     private void Update()
@@ -63,7 +66,7 @@ public class GridPlacement : MonoBehaviour
             else Debug.Log("No tile found");
         }
     }
-    private static void GridInit()
+    public static void GridInit()
     {
         for (int i = 1; i < 4; i++)
             for (int j = 1; j < 4; j++)
@@ -122,7 +125,10 @@ public class GridPlacement : MonoBehaviour
     public static IEnumerator ResetGrid()
     {
         scoring = true;
-        yield return new WaitForSeconds(2f);
+        if (!ScoringSystem.resetPushed)
+            yield return new WaitForSeconds(2f);
+        else 
+            yield return new WaitForSeconds(0f);
         GridInit();
         player1 = true;
         player2 = false;
@@ -138,5 +144,13 @@ public class GridPlacement : MonoBehaviour
             lastPlayer = 1;
         else
             lastPlayer = 2;
+    }
+    public static void SecondRestart()
+    {
+        player1 = true;
+        player2 = false;
+        startingPlayer = Player.p1;
+        scoring = false;
+        GridInit();
     }
 }

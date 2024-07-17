@@ -8,7 +8,8 @@ public class ButtonsSetup : MonoBehaviour
     {
         Button[] buttons = GetComponentsInChildren<Button>();
         foreach (Button button in buttons)
-            button.gameObject.AddComponent<ButtonProperties>();
+            if (!button.gameObject.GetComponent<Image>().isActiveAndEnabled)
+                button.gameObject.AddComponent<ButtonProperties>();
     }
     public void PlayClick()
     {
@@ -17,6 +18,10 @@ public class ButtonsSetup : MonoBehaviour
     public void OptionsClick()
     {
         SceneManager.LoadScene("OptionsScene");
+    }
+    public void BackClick()
+    {
+        SceneManager.LoadScene("MenuScene");
     }
     public void ExitClick()
     {
