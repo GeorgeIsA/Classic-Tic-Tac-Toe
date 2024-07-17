@@ -7,6 +7,10 @@ TagManager:
   - Tile
   - O
   - X
+  - Player1Input
+  - Player2Input
+  - Player1Text
+  - Player2Text
   layers:
   - Default
   - TransparentFX
