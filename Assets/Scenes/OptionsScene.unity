@@ -3517,7 +3517,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1528838741}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1613634230}
+        m_TargetAssemblyTypeName: PlayerNames, Assembly-CSharp
+        m_MethodName: ResetClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1528838741
 MonoBehaviour:
   m_ObjectHideFlags: 0
