@@ -11,6 +11,10 @@ TagManager:
   - Player2Input
   - Player1Text
   - Player2Text
+  - X1
+  - X2
+  - O1
+  - O2
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoringSystem : MonoBehaviour
 {
@@ -10,8 +11,20 @@ public class ScoringSystem : MonoBehaviour
     private TextMeshProUGUI player2ScoreText;
     private TextMeshProUGUI drawsText;
     public static bool resetPushed;
+    private static bool player1Turn;
+
+    private Image X1;
+    private Image X2;
+    private Image O1;
+    private Image O2;
     private void Start()
     {
+        X1 = GameObject.Find("X1").GetComponent<Image>();
+        X2 = GameObject.Find("X2").GetComponent<Image>();
+        O1 = GameObject.Find("O1").GetComponent<Image>();
+        O2 = GameObject.Find("O2").GetComponent<Image>();
+        player1Turn = true;
+        SetTurn();
         resetPushed = false;
         player1ScoreText = GameObject.Find("Player1ScoreText").GetComponent<TextMeshProUGUI>();
         player1ScoreText.text = 0.ToString();
@@ -40,6 +53,7 @@ public class ScoringSystem : MonoBehaviour
             }
             scored = false;
             StartCoroutine(GridPlacement.ResetGrid());
+            SetTurn();
         }
         else if (bothScored)
         {
@@ -47,6 +61,7 @@ public class ScoringSystem : MonoBehaviour
             drawsText.text = (int.Parse(drawsText.text) + 1).ToString();
             bothScored = false;
             StartCoroutine(GridPlacement.ResetGrid());
+            SetTurn();
         }
     }
 
@@ -66,6 +81,8 @@ public class ScoringSystem : MonoBehaviour
     }
     public void ResetScore()
     {
+        player1Turn = true;
+        SetTurn();
         resetPushed = true;
         StartCoroutine(GridPlacement.ResetGrid());
         GridPlacement.SecondRestart();
@@ -73,5 +90,24 @@ public class ScoringSystem : MonoBehaviour
         player2ScoreText.text = 0.ToString();
         drawsText.text = 0.ToString();
         resetPushed = false;
+    }
+    private void SetTurn()
+    {
+        if (player1Turn)
+        {
+            X1.enabled = true;
+            X2.enabled = false;
+            O1.enabled = false;
+            O2.enabled = true;
+            player1Turn = false;
+        }
+        else
+        {
+            X1.enabled = false;
+            X2.enabled = true;
+            O1.enabled = true;
+            O2.enabled = false;
+            player1Turn = true;
+        }
     }
 }

@@ -125,6 +125,7 @@ public class GridPlacement : MonoBehaviour
     public static IEnumerator ResetGrid()
     {
         scoring = true;
+
         if (!ScoringSystem.resetPushed)
             yield return new WaitForSeconds(2f);
         else 
