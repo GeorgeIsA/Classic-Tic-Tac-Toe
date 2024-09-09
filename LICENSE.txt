@@ -1,0 +1,28 @@
+Non-Commercial Use License for Classic-Tic-Tac-Toe Game.
+
+Version 1.0
+
+By downloading, using, or modifying this software (the "Software"), you agree to the following terms and conditions:
+
+1. Non-Commercial Use
+This Software is licensed strictly for personal and non-commercial use only. You may not use this Software, or any part of it, to develop, distribute, or otherwise create any product, service, or content for commercial purposes, whether for profit or not. Commercial use includes, but is not limited to:
+
+Selling, licensing, or distributing the Software or its modifications.
+Using the Software to generate revenue in any form, including but not limited to advertisements, subscription fees, in-app purchases, or paid content.
+Using the Software as part of any business, company, or other entity's commercial activities.
+2. Attribution
+You must provide appropriate credit to the original author(s) of the Software in any usage, modification, or distribution, even if not for commercial purposes.
+
+3. Modifications
+You may modify the Software for personal use but may not distribute such modifications in a way that enables commercial use by others.
+
+4. Prohibited Activities
+You are not allowed to:
+
+Use the Software in any commercial application, project, or venture.
+Remove, alter, or obscure any copyright or licensing notices contained in the Software.
+5. Disclaimer of Warranty
+This Software is provided "as is," without warranty of any kind, express or implied. In no event shall the author(s) be liable for any damages arising from the use or inability to use the Software.
+
+6. Termination
+This license will automatically terminate if you violate any of these terms. Upon termination, you must cease all use of the Software and destroy any copies in your possession.
